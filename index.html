@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info Cards — Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20576%20512%22%3E%3Crect%20width%3D%22576%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%233b4bf0%22%2F%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M64%2032C28.7%2032%200%2060.7%200%2096V416c0%2035.3%2028.7%2064%2064%2064H512c35.3%200%2064-28.7%2064-64V96c0-35.3-28.7-64-64-64H64zm80%20256h64c44.2%200%2080%2035.8%2080%2080c0%208.8-7.2%2016-16%2016H80c-8.8%200-16-7.2-16-16c0-44.2%2035.8-80%2080-80zm-32-96a64%2064%200%201%201%20128%200%2064%2064%200%201%201%20-128%200zm256-32H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16zm0%2064H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16zm0%2064H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16z%22%20transform%3D%22translate(56%2040)%20scale(0.805)%22%2F%3E%3C%2Fsvg%3E">
+  <meta name="description"
+    content="Official documentation for the Info Cards WordPress plugin: installation, the Info Cards block and its themes, the Pro card blocks, shortcode usage, click analytics and licence activation.">
+  <style>
+    :root {
+      --brand: #3b4bf0;
+      --brand-dark: #2f3cc4;
+      --brand-light: #eef0fe;
+      --ink: #1a2036;
+      --ink-soft: #3d4461;
+      --muted: #6b7280;
+      --faint: #9aa1b5;
+      --line: #e6e8f0;
+      --bg: #ffffff;
+      --bg-soft: #f7f8fc;
+      --code-bg: #f4f5fa;
+      --code-ink: #2f3cc4;
+      --green: #0e9f6e;
+      --amber: #c27803;
+      --red: #e02424;
+      --radius: 10px;
+      --topbar-h: 72px;
+      --sidebar-w: 300px;
+      --toc-w: 260px;
+      --content-max: 780px;
+      font-size: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink-soft);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+
+    /* ============ Top bar ============ */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: var(--topbar-h);
+      background: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      color: #fff;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .topbar-logo {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .topbar-logo svg,
+    .topbar-logo img {
+      width: 34px;
+      height: 34px;
+      display: block;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .topbar-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      white-space: nowrap;
+    }
+
+    .topbar-name .thin {
+      /* the plugin name is ONE colour: vary weight only, never opacity */
+      font-weight: 400;
+      opacity: 1;
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 26px;
+      background: rgba(255, 255, 255, .35);
+    }
+
+    .topbar-docs {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .topbar-search {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 46px;
+      border: none;
+      border-radius: 8px;
+      padding: 0 3rem 0 2.7rem;
+      font-size: .95rem;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: var(--faint);
+    }
+
+    .search-box .s-icon {
+      position: absolute;
+      left: .95rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 17px;
+      height: 17px;
+      color: var(--faint);
+      pointer-events: none;
+    }
+
+    .search-box kbd {
+      position: absolute;
+      right: .8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: .1rem .55rem;
+      font-size: .8rem;
+      color: var(--faint);
+      font-family: inherit;
+      background: #fff;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: 0 16px 40px rgba(20, 24, 60, .14);
+      max-height: 360px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.open {
+      display: block;
+    }
+
+    .search-results a {
+      display: block;
+      padding: .65rem 1rem;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .search-results a:last-child {
+      border-bottom: none;
+    }
+
+    .search-results a:hover,
+    .search-results a.sel {
+      background: var(--bg-soft);
+    }
+
+    .search-results .r-title {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .search-results .r-crumb {
+      font-size: .76rem;
+      color: var(--faint);
+    }
+
+    .search-results .empty {
+      padding: .9rem 1rem;
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    .topbar-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .topbar-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: .95rem;
+      font-weight: 500;
+      opacity: .95;
+      white-space: nowrap;
+    }
+
+    .topbar-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      padding: .3rem;
+    }
+
+    .menu-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* ============ Layout ============ */
+    .layout {
+      display: flex;
+      padding-top: var(--topbar-h);
+      min-height: 100vh;
+    }
+
+    /* ============ Sidebar ============ */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      border-right: 1px solid var(--line);
+      padding: 2rem 0 3rem;
+      position: sticky;
+      top: var(--topbar-h);
+      height: calc(100vh - var(--topbar-h));
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--line);
+      border-radius: 3px;
+    }
+
+    .nav-group {
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: .8rem 1.6rem .8rem 2rem;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--ink);
+      font-family: inherit;
+      text-align: left;
+    }
+
+    .nav-group-head:hover {
+      color: var(--brand);
+    }
+
+    .nav-group-head .chev {
+      width: 14px;
+      height: 14px;
+      color: var(--faint);
+      transition: transform .2s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-group.open .nav-group-head .chev {
+      transform: rotate(90deg);
+    }
+
+    .nav-group-items {
+      display: none;
+      padding: 0 0 .6rem;
+    }
+
+    .nav-group.open .nav-group-items {
+      display: block;
+    }
+
+    .nav-group-items a {
+      display: block;
+      padding: .38rem 1.6rem .38rem 2.7rem;
+      font-size: .89rem;
+      color: var(--muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+
+    .nav-group-items a:hover {
+      color: var(--brand);
+    }
+
+    .nav-group-items a.active {
+      color: var(--brand);
+      font-weight: 600;
+      border-left-color: var(--brand);
+      background: linear-gradient(90deg, var(--brand-light), transparent 85%);
+    }
+
+    /* ============ Main ============ */
+    .main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      padding: 2.4rem 3rem 5rem;
+      gap: 3rem;
+    }
+
+    .content {
+      width: 100%;
+      max-width: var(--content-max);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .55rem;
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+
+    .breadcrumb svg {
+      width: 15px;
+      height: 15px;
+      color: var(--faint);
+    }
+
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--brand);
+    }
+
+    .breadcrumb .bc-sep {
+      color: var(--faint);
+    }
+
+    .breadcrumb .bc-current {
+      color: var(--ink-soft);
+    }
+
+    .doc-article {
+      display: none;
+    }
+
+    .doc-article.active {
+      display: block;
+      animation: fadein .18s ease;
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .doc-article h1 {
+      font-size: 2.15rem;
+      line-height: 1.25;
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: -.015em;
+      margin-bottom: 1.1rem;
+    }
+
+    .doc-article .lead {
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+    }
+
+    .doc-article h2 {
+      font-size: 1.45rem;
+      color: var(--ink);
+      font-weight: 700;
+      margin: 2.6rem 0 .9rem;
+      letter-spacing: -.01em;
+      scroll-margin-top: calc(var(--topbar-h) + 24px);
+    }
+
+    .doc-article h3 {
+      font-size: 1.08rem;
+      color: var(--ink);
+      font-weight: 650;
+      margin: 1.8rem 0 .6rem;
+      scroll-margin-top: calc(var(--topbar-h) + 24px);
+    }
+
+    .doc-article p {
+      margin-bottom: 1rem;
+    }
+
+    .doc-article ul,
+    .doc-article ol {
+      margin: 0 0 1.1rem 1.4rem;
+    }
+
+    .doc-article li {
+      margin-bottom: .45rem;
+    }
+
+    .doc-article li::marker {
+      color: var(--brand);
+    }
+
+    .doc-article a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    .doc-article a:hover {
+      text-decoration: underline;
+    }
+
+    .doc-article strong {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .doc-article code {
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: .1rem .4rem;
+      font-size: .85em;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      /* a long URL or hostname must wrap, not widen the page on a phone */
+      overflow-wrap: anywhere;
+    }
+
+    .codeblock {
+      position: relative;
+      margin: 0 0 1.2rem;
+    }
+
+    .codeblock pre {
+      background: var(--code-bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      overflow-x: auto;
+      font-size: .87rem;
+      line-height: 1.6;
+    }
+
+    .codeblock pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--code-ink);
+    }
+
+    .codeblock .copy-btn {
+      position: absolute;
+      top: .55rem;
+      right: .55rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: .74rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding: .25rem .6rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .codeblock .copy-btn:hover {
+      color: var(--brand);
+      border-color: var(--brand);
+    }
+
+    .callout {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--brand);
+      background: var(--bg-soft);
+      border-radius: 8px;
+      padding: .9rem 1.1rem;
+      margin: 0 0 1.2rem;
+      font-size: .93rem;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout .co-label {
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+      margin-bottom: .15rem;
+    }
+
+    .callout.tip {
+      border-left-color: var(--green);
+    }
+
+    .callout.warn {
+      border-left-color: var(--amber);
+    }
+
+    .callout.danger {
+      border-left-color: var(--red);
+    }
+
+    table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 1.3rem;
+      font-size: .89rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-bottom: 1.3rem;
+    }
+
+    .table-wrap table.doc-table {
+      margin-bottom: 0;
+    }
+
+    table.doc-table th {
+      text-align: left;
+      background: var(--bg-soft);
+      color: var(--ink);
+      font-weight: 650;
+      padding: .6rem .8rem;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    table.doc-table td {
+      padding: .6rem .8rem;
+      border: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    table.doc-table td code {
+      white-space: nowrap;
+    }
+
+    .badge-pro {
+      display: inline-block;
+      vertical-align: 2px;
+      background: linear-gradient(90deg, #f59e0b, #f97316);
+      color: #fff;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      padding: .12rem .45rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      margin-left: .45rem;
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .9rem;
+      margin: 0 0 1.4rem;
+      padding: .85rem 1.1rem;
+      background: var(--brand-light);
+      border: 1px solid #ccd2fb;
+      border-radius: 10px;
+    }
+
+    .switch-label {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .editor-switch {
+      display: inline-flex;
+      /* wrap on narrow screens: three buttons do not fit a 390px viewport */
+      flex-wrap: wrap;
+      max-width: 100%;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid #ccd2fb;
+      border-radius: 9px;
+      background: #fff;
+    }
+
+    .editor-switch button {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--ink-soft);
+      padding: .45rem 1.15rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .15s ease, color .15s ease;
+    }
+
+    .editor-switch button svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .editor-switch button:hover:not(.on) {
+      background: var(--brand-light);
+      color: var(--brand-dark);
+    }
+
+    .editor-switch button.on {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(59, 75, 240, .35);
+    }
+
+    .editor-switch button:focus-visible {
+      outline: 2px solid var(--brand-dark);
+      outline-offset: 2px;
+    }
+
+    body.editor-gutenberg .only-classic,
+    body.editor-gutenberg .only-elementor,
+    body.editor-gutenberg .hide-gutenberg,
+    body.editor-classic .only-gutenberg,
+    body.editor-classic .only-elementor,
+    body.editor-classic .hide-classic,
+    body.editor-elementor .only-gutenberg,
+    body.editor-elementor .only-classic,
+    body.editor-elementor .hide-elementor {
+      display: none !important;
+    }
+
+    .section-hidden {
+      display: none !important;
+    }
+
+    .no-support {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--amber);
+      background: var(--bg-soft);
+      border-radius: 8px;
+      padding: .9rem 1.1rem;
+      margin: 0 0 1.2rem;
+      font-size: .93rem;
+    }
+
+    .no-support .ns-label {
+      font-weight: 700;
+      color: var(--ink);
+      display: block;
+      margin-bottom: .15rem;
+    }
+
+    .no-support p:last-child {
+      margin-bottom: 0;
+    }
+
+    .media-slot {
+      margin: 1.4rem 0 1.8rem;
+    }
+
+    .media-slot img,
+    .media-slot video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 32px rgba(20, 24, 60, .10);
+    }
+
+    .media-slot .yt-wrap {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 32px rgba(20, 24, 60, .10);
+      background: #10132b;
+    }
+
+    .media-slot .yt-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .media-slot figcaption {
+      font-size: .82rem;
+      color: var(--faint);
+      text-align: center;
+      margin-top: .6rem;
+    }
+
+    /* ===== Image lightbox ===== */
+    .media-slot img {
+      cursor: zoom-in;
+      transition: box-shadow .18s ease;
+    }
+
+    .media-slot img:hover {
+      box-shadow: 0 14px 38px rgba(20, 24, 60, .22);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 400;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 3.2rem 4.5rem 2rem;
+      background: rgba(12, 15, 35, .88);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(100vh - 8.5rem);
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .5);
+    }
+
+    .lb-caption {
+      color: #eef0fe;
+      font-size: .92rem;
+      text-align: center;
+      max-width: 60ch;
+      line-height: 1.5;
+    }
+
+    .lb-count {
+      color: #9aa1c8;
+      font-size: .8rem;
+    }
+
+    .lightbox button {
+      position: absolute;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .22);
+      color: #fff;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+
+    .lightbox button:hover {
+      background: rgba(255, 255, 255, .26);
+    }
+
+    .lightbox button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .lightbox button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .lb-close {
+      top: 1.1rem;
+      right: 1.4rem;
+    }
+
+    .lb-prev {
+      left: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lb-next {
+      right: 1.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox.single .lb-prev,
+    .lightbox.single .lb-next {
+      display: none;
+    }
+
+    body.lb-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .lightbox {
+        padding: 3.2rem 1rem 1.5rem;
+      }
+
+      .lb-prev {
+        left: .4rem;
+      }
+
+      .lb-next {
+        right: .4rem;
+      }
+    }
+
+    .media-ph {
+      border: 2px dashed #c7cbe3;
+      border-radius: 12px;
+      background: var(--bg-soft);
+      padding: 2.1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .45rem;
+      text-align: center;
+    }
+
+    .media-ph .ph-icon {
+      width: 36px;
+      height: 36px;
+      color: #aab0d0;
+    }
+
+    .media-ph .ph-label {
+      font-weight: 650;
+      color: var(--ink-soft);
+      font-size: .92rem;
+    }
+
+    .media-ph .ph-path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .76rem;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: .18rem .6rem;
+    }
+
+    .media-ph .ph-hint {
+      font-size: .75rem;
+      color: var(--faint);
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin: 0 0 1.3rem;
+    }
+
+    .steps>li {
+      counter-increment: step;
+      position: relative;
+      padding: 0 0 1.1rem 2.7rem;
+      margin: 0;
+    }
+
+    .steps>li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: .1rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      font-size: .82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .steps>li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 12.5px;
+      top: 30px;
+      bottom: 2px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .steps li ul {
+      margin: .5rem 0 0 1.1rem;
+      list-style: disc;
+    }
+
+    .steps li ul li {
+      margin-bottom: .3rem;
+      padding: 0;
+    }
+
+    .article-footer {
+      margin-top: 3.2rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .pager-link {
+      display: flex;
+      flex-direction: column;
+      gap: .15rem;
+      text-decoration: none;
+      max-width: 46%;
+    }
+
+    .pager-link .pl-dir {
+      font-size: .78rem;
+      color: var(--faint);
+    }
+
+    .pager-link .pl-title {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--brand);
+    }
+
+    .pager-link:hover .pl-title {
+      text-decoration: underline;
+    }
+
+    .pager-link.next {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    /* ============ TOC ============ */
+    .toc {
+      width: var(--toc-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: calc(var(--topbar-h) + 24px);
+      align-self: flex-start;
+      max-height: calc(100vh - var(--topbar-h) - 48px);
+      overflow-y: auto;
+      padding-left: .4rem;
+    }
+
+    .toc-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: .8rem;
+    }
+
+    .toc ul {
+      list-style: none;
+    }
+
+    .toc li {
+      margin-bottom: .55rem;
+    }
+
+    .toc a {
+      font-size: .88rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: block;
+      line-height: 1.45;
+    }
+
+    .toc a:hover {
+      color: var(--brand);
+    }
+
+    .toc a.active {
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: var(--topbar-h) 0 0 0;
+      background: rgba(15, 18, 40, .45);
+      z-index: 140;
+    }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 1280px) {
+      .toc {
+        display: none;
+      }
+
+      .topbar-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: var(--topbar-h);
+        bottom: 0;
+        z-index: 150;
+        transform: translateX(-100%);
+        transition: transform .22s ease;
+        box-shadow: 8px 0 28px rgba(20, 24, 60, .12);
+        height: auto;
+      }
+
+      body.nav-open .sidebar {
+        transform: none;
+      }
+
+      body.nav-open .overlay {
+        display: block;
+      }
+
+      .main {
+        padding: 1.8rem 1.4rem 4rem;
+      }
+
+      .topbar {
+        padding: 0 1.1rem;
+        gap: 1rem;
+      }
+
+      .topbar-sep,
+      .topbar-docs {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .doc-article h1 {
+        font-size: 1.65rem;
+      }
+
+      .search-box kbd {
+        display: none;
+      }
+
+      .topbar-name .thin {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="editor-gutenberg">
+
+  <!-- ===================== TOP BAR ===================== -->
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 6h18M3 12h18M3 18h18" />
+      </svg>
+    </button>
+    <a class="topbar-brand" href="https://bplugins.com/products/info-cards" target="_blank" rel="noopener">
+      <span class="topbar-logo"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20576%20512%22%3E%3Crect%20width%3D%22576%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%23ffffff%22%2F%3E%3Cpath%20fill%3D%22%233b4bf0%22%20d%3D%22M64%2032C28.7%2032%200%2060.7%200%2096V416c0%2035.3%2028.7%2064%2064%2064H512c35.3%200%2064-28.7%2064-64V96c0-35.3-28.7-64-64-64H64zm80%20256h64c44.2%200%2080%2035.8%2080%2080c0%208.8-7.2%2016-16%2016H80c-8.8%200-16-7.2-16-16c0-44.2%2035.8-80%2080-80zm-32-96a64%2064%200%201%201%20128%200%2064%2064%200%201%201%20-128%200zm256-32H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16zm0%2064H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16zm0%2064H496c8.8%200%2016%207.2%2016%2016s-7.2%2016-16%2016H368c-8.8%200-16-7.2-16-16s7.2-16%2016-16z%22%20transform%3D%22translate(56%2040)%20scale(0.805)%22%2F%3E%3C%2Fsvg%3E" alt="Info Cards icon" width="36" height="36"></span>
+      <span class="topbar-name">Info <span class="thin">Cards</span></span>
+    </a>
+    <span class="topbar-sep"></span>
+    <span class="topbar-docs">Docs</span>
+
+    <div class="topbar-search">
+      <div class="search-box">
+        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search..." autocomplete="off">
+        <kbd>/</kbd>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <nav class="topbar-links">
+      <a href="https://wordpress.org/support/plugin/info-cards/" target="_blank" rel="noopener">Support Forum</a>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="layout">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+      <nav id="sideNav">
+
+        <div class="nav-group" data-group="Info Cards">
+          <button class="nav-group-head">Info Cards
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+          <div class="nav-group-items">
+            <a href="#home" data-nav>Home</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="Getting Started">
+          <button class="nav-group-head">Getting Started
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+          <div class="nav-group-items">
+            <a href="#getting-started" data-nav>Getting Started</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="How To Use">
+          <button class="nav-group-head">How To Use
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+          <div class="nav-group-items">
+            <a href="#how-to-use" data-nav>How To Use</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="FAQs">
+          <button class="nav-group-head">FAQs
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+          <div class="nav-group-items">
+            <a href="#faqs" data-nav>FAQs</a>
+          </div>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main">
+      <div class="content">
+
+        <nav class="breadcrumb" id="breadcrumb">
+          <a href="#home" data-nav aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            </svg>
+          </a>
+          <span class="bc-sep">/</span>
+          <a href="#home" data-nav>Docs</a>
+          <span class="bc-sep">/</span>
+          <span id="bcGroup"></span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current" id="bcTitle"></span>
+        </nav>
+
+        <div id="articles">
+          <!-- ============ HOME ============ -->
+          <article class="doc-article" id="home" data-group="Info Cards" data-title="Home">
+            <h1><a href="https://wordpress.org/plugins/info-cards/" target="_blank" rel="noopener">Info Cards</a></h1>
+            <p class="lead">Welcome to the official Info Cards Documentation!</p>
+            <p>Learn how to use the Info Cards plugin on your WordPress website with a step-by-step guide and get
+              suggestions directly from the plugin authors.</p>
+
+            <h2 id="home-articles">Articles</h2>
+            <ul>
+              <li><a href="#getting-started" data-nav>Getting Started</a>: what the plugin does, what it needs, how to
+                install it, and how to activate a Pro licence.</li>
+              <li><a href="#how-to-use" data-nav>How To Use</a>: every block the plugin registers, the settings in each
+                one, the shortcode, and the click analytics screen.</li>
+              <li><a href="#faqs" data-nav>FAQs</a>: the questions the plugin authors answer most often.</li>
+            </ul>
+          </article>
+
+          <!-- ============ GETTING STARTED ============ -->
+          <article class="doc-article" id="getting-started" data-group="Getting Started"
+            data-title="Getting Started">
+            <h1>Getting Started</h1>
+            <p class="lead">Install Info Cards, find it in your WordPress admin, and get a card layout on a page.</p>
+
+            <h2 id="gs-toc">Table of Contents</h2>
+            <ul>
+              <li><a href="#gs-introduction">Introduction</a></li>
+              <li><a href="#gs-requirements">Requirements</a></li>
+              <li><a href="#gs-installation">Installation</a></li>
+              <li><a href="#gs-onboarding">Complete Onboarding Setup</a></li>
+              <li><a href="#gs-admin-menu">The Info Cards Admin Menu</a></li>
+              <li><a href="#gs-license">License Activation</a></li>
+            </ul>
+
+            <h2 id="gs-introduction">Introduction</h2>
+            <p>Info Cards is a block plugin for the WordPress block editor. It adds an <strong>Info Cards</strong>
+              category to the block inserter and gives you blocks that lay text, images and links out as a row or grid
+              of cards.</p>
+            <p>You build a card layout the same way you build any other block content. Add the block to a post or page,
+              type the title and description straight onto the card in the canvas, pick an image, and set the columns,
+              gaps, colours and typography from the block sidebar. Nothing has to be written in code.</p>
+            <p>The plugin is a good fit if you present repeated pieces of content in a uniform shape: service
+              summaries, team members, product highlights, feature lists or link collections. The same card layout can
+              also be saved once and reused anywhere on the site through a shortcode, so it works outside the block
+              editor too.</p>
+            <p>The free build registers one block, <strong>Info Cards</strong>, with six themes. The Pro build unlocks
+              seven more themes inside that block and adds eight further card blocks. Everything in this
+              documentation that is Pro only is marked with a <span class="badge-pro">Pro</span> badge.</p>
+
+            <div class="callout tip"><span class="co-label">Note</span> The package that ships the premium features is
+              named <strong>Info Cards Pro</strong> in the plugins list. It is the same plugin as the free
+              <strong>Info Cards</strong>, and it deactivates the free copy on activation so the two never run at
+              once.
+            </div>
+
+            <h2 id="gs-requirements">Requirements</h2>
+            <ul>
+              <li><strong>Download:</strong> <a
+                  href="https://downloads.wordpress.org/plugin/info-cards.3.0.2.zip">info-cards.3.0.2.zip</a></li>
+              <li><strong>WordPress Version:</strong> 6.5 or later</li>
+              <li><strong>PHP Version:</strong> 7.4 or later</li>
+            </ul>
+
+            <h2 id="gs-installation">Installation</h2>
+
+            <h3 id="gs-install-search">1st Way: Install by Search</h3>
+            <ol class="steps">
+              <li>Go to <strong>Plugins &rarr; Add New</strong> in your WordPress admin dashboard.</li>
+              <li>Type <strong>Info Cards</strong> into the search field.</li>
+              <li>Click <strong>Install Now</strong> on the Info Cards plugin by bPlugins.</li>
+              <li>Click <strong>Activate</strong>.</li>
+            </ol>
+
+            <h3 id="gs-install-upload">2nd Way: Install by Upload</h3>
+            <ol class="steps">
+              <li>Download <code>info-cards.3.0.2.zip</code> from the WordPress.org plugin page.</li>
+              <li>Go to <strong>Plugins &rarr; Add New &rarr; Upload Plugin</strong>.</li>
+              <li>Choose the zip file and click <strong>Install Now</strong>.</li>
+              <li>Click <strong>Activate</strong>.</li>
+            </ol>
+            <p>If you prefer to upload by FTP, unzip the file and copy the <code>info-cards</code> folder into
+              <code>/wp-content/plugins/</code>, then activate the plugin from the <strong>Plugins</strong> screen.
+            </p>
+
+            <h3 id="gs-install-gutenberg">3rd Way: Install from Gutenberg Editor</h3>
+            <ol class="steps">
+              <li>Open the post or page where you want the cards.</li>
+              <li>Click the <strong>+</strong> button in the block editor and search for <strong>Info Cards</strong>.
+              </li>
+              <li>The editor suggests matching blocks from the block directory. Click the <strong>Info
+                  Cards</strong> block by bPlugins to install and insert it in one step.</li>
+              <li>The block is added to your content and the plugin is now active on the site.</li>
+            </ol>
+
+            <h2 id="gs-onboarding">Complete Onboarding Setup</h2>
+            <p>After activation the plugin opens its welcome screen at <strong>Info Cards &rarr; Help And
+                Demo</strong>. You can also reach it from the <strong>Help And Demo</strong> link next to Info Cards on
+              the <strong>Plugins</strong> screen.</p>
+            <p>The <strong>Welcome</strong> page has a <strong>Getting Started</strong> panel with four tabs, one for
+              each way of placing a card layout. Pick the tab that matches how you build pages:</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Tab</th>
+                    <th>What it walks you through</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Gutenberg</td>
+                    <td>Add the block, pick a layout, add your content, then style and publish. The
+                      <strong>Open Editor</strong> button starts a new post for you.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Shortcode</td>
+                    <td>Create a card layout under <strong>Info Cards &rarr; Add New</strong>, publish it, copy its
+                      shortcode, then paste the shortcode wherever you need it.</td>
+                  </tr>
+                  <tr>
+                    <td>Elementor</td>
+                    <td>Build and publish a card layout, then drop Elementor's <strong>Shortcode</strong> widget into
+                      your design and paste the shortcode into it.</td>
+                  </tr>
+                  <tr>
+                    <td>PHP</td>
+                    <td>Take the ID from the ShortCodes list and call it from a template file with
+                      <code>do_shortcode</code>.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The same screen carries a <strong>Start Now</strong> button. It creates a new page already titled
+              <em>Info Cards</em> with the Info Cards block inserted, so you can go straight to editing.
+            </p>
+
+            <h2 id="gs-admin-menu">The Info Cards Admin Menu</h2>
+            <p>Activating the plugin adds an <strong>Info Cards</strong> item to the WordPress admin menu. It is
+              available to users who can manage options. Under it you get:</p>
+            <ul>
+              <li><strong>Help And Demo:</strong> the plugin dashboard, described below.</li>
+              <li><strong>Analytics:</strong> the card click report. See <a href="#how-to-use" data-nav>How To
+                  Use</a>.</li>
+              <li><strong>ShortCodes:</strong> the saved card layouts you can embed anywhere with a shortcode.</li>
+            </ul>
+            <p>The <strong>Help And Demo</strong> dashboard has its own left-hand navigation:</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Page</th>
+                    <th>What it does</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Welcome</td>
+                    <td>Getting started tabs, the changelog and the plugin version.</td>
+                  </tr>
+                  <tr>
+                    <td>Blocks</td>
+                    <td>Turn individual Info Cards blocks on or off for the whole site. Info Cards itself is marked
+                      <strong>Required</strong> and cannot be switched off. Blocks marked <strong>Pro</strong> stay
+                      locked until a licence is active.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Demos</td>
+                    <td>Live previews of every theme and every block, filterable by category.</td>
+                  </tr>
+                  <tr>
+                    <td>Pricing</td>
+                    <td>Plans and prices. Hidden once a Pro licence is active.</td>
+                  </tr>
+                  <tr>
+                    <td>Feature Comparison</td>
+                    <td>A searchable free against Pro feature table. Hidden once a Pro licence is active.</td>
+                  </tr>
+                  <tr>
+                    <td>License Activation</td>
+                    <td>Enter, check or deactivate your licence key. Shown only when the Pro build is installed.</td>
+                  </tr>
+                  <tr>
+                    <td>Settings</td>
+                    <td>A single <strong>Delete plugin data on uninstall</strong> switch, described below.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 id="gs-settings">Settings: data on uninstall</h3>
+            <p>By default your settings and data stay in the database even if you deactivate or uninstall the plugin.
+              The <strong>Settings</strong> page lets you change that with the <strong>Delete plugin data on
+                uninstall</strong> switch. When it is on, uninstalling the plugin permanently removes its posts and
+              custom post types, settings and options, layout configuration and meta data, taxonomy terms, and all
+              tracking and analytics data.</p>
+            <div class="callout warn"><span class="co-label">Warning</span> Turning the switch on asks you to type a
+              confirmation first, because there is no way to recover the data once the plugin is uninstalled. Take a
+              backup before you enable it.</div>
+
+            <h2 id="gs-license">License Activation</h2>
+            <p>This section applies to the Pro build only. The licence screen is not present in the free plugin.</p>
+            <ol class="steps">
+              <li>Go to <strong>Info Cards &rarr; Help And Demo</strong> and open <strong>License
+                  Activation</strong>.</li>
+              <li>Paste the <strong>License key</strong> you received with your purchase into the field.</li>
+              <li>Click <strong>Activate License</strong> and wait while the plugin contacts the licence server.</li>
+              <li>When the key is accepted the page shows <strong>Your license is active</strong> and the Pro blocks
+                and themes become available in the editor.</li>
+            </ol>
+            <p>The same screen lets you show, hide or copy the stored key, change it for a different one, or click
+              <strong>Deactivate license</strong> to release the key so you can move it to another site. Deactivating
+              stops premium features and automatic updates on this site until you activate again. If you cannot find
+              your key, use the <strong>Recover license</strong> link on that screen.
+            </p>
+            <div class="callout"><span class="co-label">Note</span> Licensing runs through Freemius. The activation
+              screen lists exactly what is sent for updates and security patches: your homepage URL, plugin version,
+              SDK version, and whether the plugin is active, deactivated or uninstalled.</div>
+          </article>
+
+          <!-- ============ HOW TO USE ============ -->
+          <article class="doc-article" id="how-to-use" data-group="How To Use" data-title="How To Use">
+            <h1>How To Use</h1>
+            <p class="lead">Every block Info Cards registers, the settings inside it, the shortcode, and the click
+              report.</p>
+
+            <h2 id="htu-blocks-overview">The Blocks at a Glance</h2>
+            <p>All of the plugin's blocks sit in the <strong>Info Cards</strong> category at the top of the block
+              inserter. Every one of them supports the <strong>Wide</strong> and <strong>Full</strong> width
+              alignments.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Block</th>
+                    <th>Availability</th>
+                    <th>Good for</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Info Cards</td>
+                    <td>Free</td>
+                    <td>General purpose cards with an image, title, description and button.</td>
+                  </tr>
+                  <tr>
+                    <td>Player Cards</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Profile cards with a role, location, level, points and stats.</td>
+                  </tr>
+                  <tr>
+                    <td>News Cards</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Article cards, either hand written or pulled from your posts.</td>
+                  </tr>
+                  <tr>
+                    <td>Magnifying Glass Card</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Image cards with a magnifying hover effect.</td>
+                  </tr>
+                  <tr>
+                    <td>Expanding Flex Cards</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>A row of image panels that expand as you hover them.</td>
+                  </tr>
+                  <tr>
+                    <td>Expandable Animated Card Slider</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>A carousel whose active slide opens out.</td>
+                  </tr>
+                  <tr>
+                    <td>Animated Gradient Cards</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Cards with an animated gradient border and a reveal icon.</td>
+                  </tr>
+                  <tr>
+                    <td>3D Fold Out Reveal</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Cards that fold out in 3D to show their description.</td>
+                  </tr>
+                  <tr>
+                    <td>Nice Box</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                    <td>Image boxes separated by a coloured wave shape.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout tip"><span class="co-label">Tip</span> If a block you expect is missing from the
+              inserter, check <strong>Info Cards &rarr; Help And Demo &rarr; Blocks</strong>. Any block switched off
+              there is not registered at all.</div>
+
+            <h2 id="htu-info-cards">How To Use Info Cards</h2>
+            <p>Info Cards is the free block and the one most layouts start from. It renders a grid of cards, each with
+              a background, an optional image, a title, a description and an optional button. A theme decides the
+              overall look, and the theme you choose changes which style controls the sidebar offers.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Info Cards-Default"></figure>
+
+            <h3 id="htu-ic-add">Add to the Page</h3>
+            <ol class="steps">
+              <li>Open the post or page you want to edit.</li>
+              <li>Click the <strong>+</strong> button, or type <code>/Info Cards</code> in an empty paragraph.</li>
+              <li>Select <strong>Info Cards</strong> from the <strong>Info Cards</strong> category.</li>
+              <li>The block drops in with three sample cards you can edit straight away.</li>
+            </ol>
+
+            <h3 id="htu-ic-editor">Editor View</h3>
+            <p>Most of the card content is edited on the canvas rather than in the sidebar. Click a card title and type
+              over it, click the description and type over that, and click the button label to rename it. Empty fields
+              show the placeholders <em>Enter Title</em>, <em>Enter Description</em> and <em>Button</em>.</p>
+            <p>To set a picture, use the <strong>Card Image</strong> control on the card. You can upload a file, pick
+              one from the media library, or paste an image URL.</p>
+            <p>The block toolbar above the block holds the alignment buttons, which place the whole block to the left,
+              centre or right, and a theme picker with a thumbnail of each theme.</p>
+
+            <h3 id="htu-ic-themes">Themes</h3>
+            <p>Open the <strong>General</strong> tab in the block sidebar. The first panel is <strong>Themes</strong>,
+              with a single <strong>Choose A Theme</strong> dropdown.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Theme</th>
+                    <th>Availability</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Default, Theme 1, Theme 2, Theme 3, Theme 4, Theme 5</td>
+                    <td>Free</td>
+                  </tr>
+                  <tr>
+                    <td>Theme 6, Theme 7, Theme 8, Theme 9, Theme 10, Theme 11, Theme 12</td>
+                    <td><span class="badge-pro">Pro</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Switching theme rewrites several settings at once. Choosing Default, Theme 1 or Theme 2, for example,
+              sets three desktop columns and a vertical layout, while Theme 3 switches to two columns and a horizontal
+              layout. The editor shows a note reminding you that changing theme returns certain settings to their
+              default values, so pick your theme before you spend time on the styling.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Info Cards-Theme 1"></figure>
+            <div class="callout"><span class="co-label">Note</span> Theme 10 uses a mouse movement animation that runs
+              on the front end only. The editor shows a static preview of it.</div>
+
+            <h3 id="htu-ic-cards">Add or Remove Cards</h3>
+            <p>The <strong>Add or Remove Cards</strong> panel lists every card in the block. Open a card by its title
+              to reach its own settings:</p>
+            <ul>
+              <li><strong>Background:</strong> the card's background colour.</li>
+              <li><strong>Card Url:</strong> a link for the whole card.</li>
+              <li><strong>Image Url:</strong> the card image address, shown when <strong>Show Image</strong> is on.
+              </li>
+              <li><strong>Button Url:</strong> where the card's button points.</li>
+              <li><strong>Button Show:</strong> show or hide the button on this card.</li>
+            </ul>
+            <p>At the bottom of each card sit <strong>Delete</strong> and <strong>Duplicate</strong>, and at the bottom
+              of the panel <strong>Add New Card</strong>. Delete only appears once there is more than one card.</p>
+
+            <h3 id="htu-ic-layout">Layout</h3>
+            <p>The <strong>Layout</strong> panel controls the shape of the grid.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Layout</td>
+                    <td>Select</td>
+                    <td>Vertical</td>
+                    <td>Vertical stacks the image above the text, Horizontal puts them side by side. Switching to
+                      Vertical sets three desktop columns, Horizontal sets two.</td>
+                  </tr>
+                  <tr>
+                    <td>Theme</td>
+                    <td>Select</td>
+                    <td>Default</td>
+                    <td>The same theme list as the Themes panel, repeated here for convenience.</td>
+                  </tr>
+                  <tr>
+                    <td>Columns</td>
+                    <td>Range, 1 to 6, per device</td>
+                    <td>Desktop 3, Tablet 2, Mobile 1</td>
+                    <td>How many cards sit side by side. Use the device switcher above the slider to set desktop,
+                      tablet and mobile separately.</td>
+                  </tr>
+                  <tr>
+                    <td>Column Gap</td>
+                    <td>Unit value</td>
+                    <td>20px</td>
+                    <td>Horizontal space between cards.</td>
+                  </tr>
+                  <tr>
+                    <td>Row Gap</td>
+                    <td>Unit value</td>
+                    <td>20px</td>
+                    <td>Vertical space between rows of cards.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 id="htu-ic-elements">Elements</h3>
+            <p>The <strong>Elements</strong> panel decides which parts of a card are visible and how the card image
+              behaves.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Open In New Tab</td>
+                    <td>Toggle</td>
+                    <td>Off</td>
+                    <td>Opens the card URL in a new browser tab.</td>
+                  </tr>
+                  <tr>
+                    <td>Show Image</td>
+                    <td>Toggle</td>
+                    <td>On</td>
+                    <td>Shows or hides the image on every card. Turning it off hides the two settings below.</td>
+                  </tr>
+                  <tr>
+                    <td>Image Position</td>
+                    <td>Select</td>
+                    <td>Top</td>
+                    <td>Where the image sits relative to the text. The choices read Top and Bottom in a vertical
+                      layout, Left and Right in a horizontal one.</td>
+                  </tr>
+                  <tr>
+                    <td>Image Height</td>
+                    <td>Unit value</td>
+                    <td>200px</td>
+                    <td>Fixed height for the card image.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 id="htu-ic-style">Style Tab</h3>
+            <p>Switch the sidebar to the <strong>Style</strong> tab for colours, spacing and typography. The panels
+              below are the ones shown for Default and Themes 1 to 5. Themes 6 to 12 replace them with their own
+              panels, because each of those themes is built from a different set of parts.</p>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Panel and setting</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Cards &rarr; background</td>
+                    <td>Colour</td>
+                    <td>Transparent</td>
+                    <td>Background behind the whole grid.</td>
+                  </tr>
+                  <tr>
+                    <td>Cards &rarr; Padding</td>
+                    <td>Box</td>
+                    <td>0px</td>
+                    <td>Space inside the grid container, on all four sides.</td>
+                  </tr>
+                  <tr>
+                    <td>Card &rarr; Padding</td>
+                    <td>Box</td>
+                    <td>0px</td>
+                    <td>Space inside each individual card.</td>
+                  </tr>
+                  <tr>
+                    <td>Card &rarr; Border radious</td>
+                    <td>Unit value</td>
+                    <td>8px</td>
+                    <td>Corner rounding of each card.</td>
+                  </tr>
+                  <tr>
+                    <td>Content &rarr; Alignment</td>
+                    <td>Alignment</td>
+                    <td>Left</td>
+                    <td>Aligns the title, description and button block inside the card.</td>
+                  </tr>
+                  <tr>
+                    <td>Content &rarr; Padding</td>
+                    <td>Box</td>
+                    <td>20px top, 15px right, 15px bottom, 15px left</td>
+                    <td>Space around the text area of the card.</td>
+                  </tr>
+                  <tr>
+                    <td>Title &rarr; Typography</td>
+                    <td>Typography</td>
+                    <td>20px</td>
+                    <td>Font family, weight, size, style, transform, decoration, line height and letter spacing for the
+                      card title.</td>
+                  </tr>
+                  <tr>
+                    <td>Title &rarr; Color</td>
+                    <td>Colour</td>
+                    <td>#000</td>
+                    <td>Card title colour.</td>
+                  </tr>
+                  <tr>
+                    <td>Description &rarr; Typography</td>
+                    <td>Typography</td>
+                    <td>16px</td>
+                    <td>Type settings for the card description.</td>
+                  </tr>
+                  <tr>
+                    <td>Description &rarr; Color</td>
+                    <td>Colour</td>
+                    <td>#000</td>
+                    <td>Card description colour.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Typography</td>
+                    <td>Typography</td>
+                    <td>15px, no underline</td>
+                    <td>Type settings for the button label.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Alignment</td>
+                    <td>Alignment</td>
+                    <td>Left</td>
+                    <td>Where the button sits inside the card.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Colors</td>
+                    <td>Colour pair</td>
+                    <td>Text #fff on #4527a4</td>
+                    <td>Button text and background in its normal state.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Hover Colors</td>
+                    <td>Colour pair</td>
+                    <td>Text #fff on #fe6601</td>
+                    <td>Button text and background while the pointer is over it.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Padding</td>
+                    <td>Box</td>
+                    <td>10px top, 15px right, 10px bottom, 15px left</td>
+                    <td>Space inside the button.</td>
+                  </tr>
+                  <tr>
+                    <td>Button &rarr; Border Radious</td>
+                    <td>Unit value</td>
+                    <td>8px</td>
+                    <td>Corner rounding of the button.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout tip"><span class="co-label">Tip</span> The typography control includes a <strong>Load
+                Google Font</strong> switch. Turn it on when you pick a font family that your theme does not already
+              load.</div>
+
+            <h2 id="htu-player-cards">How To Use Player Cards <span class="badge-pro">Pro</span></h2>
+            <p>Player Cards presents people or profiles. Each card carries an avatar, a name, a role, a city, a joining
+              date, a level, a points figure, a group name, a short description and a list of stats.</p>
+            <figure class="media-slot" data-media="image" data-src="" data-caption="Player Cards"></figure>
+            <h3 id="htu-pc-add">Add to the Page</h3>
+            <p>Click <strong>+</strong> in the editor, open the <strong>Info Cards</strong> category and choose
+              <strong>Player Cards</strong>. The block starts with two demo profiles.
+            </p>
+            <h3 id="htu-pc-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove Cards:</strong> each card holds an <strong>Avatar Image</strong>,
+                <strong>Name</strong>, <strong>Role</strong>, <strong>Group Name</strong>, <strong>City</strong>,
+                <strong>Joined Date</strong>, <strong>Level</strong>, <strong>Points</strong>,
+                <strong>Description</strong>, a <strong>Theme Class</strong>, and a stats list where each entry has a
+                <strong>Title</strong>, an <strong>Icon</strong> and a <strong>Value</strong>.
+              </li>
+              <li><strong>Layouts:</strong> columns per device, set to two on desktop and one on tablet and mobile, plus
+                the row and column gaps.</li>
+              <li><strong>Elements:</strong> a switch for each part of the card. <strong>Show Name</strong>,
+                <strong>Show Role</strong>, <strong>Show City</strong>, <strong>Show Joined</strong>, <strong>Show Group
+                  Name</strong>, <strong>Show Level</strong>, <strong>Show Points</strong>, <strong>Show
+                  Stats</strong>, <strong>Show Description</strong> and <strong>Show Prompt</strong>, with a
+                <strong>Card Prompt</strong> field for the prompt text.
+              </li>
+            </ul>
+            <h3 id="htu-pc-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong>, <strong>Card</strong>, <strong>Image</strong>, <strong>Name</strong>,
+              <strong>Description</strong>, <strong>Role</strong>, <strong>City</strong>, <strong>Joined</strong>,
+              <strong>Group Name</strong>, <strong>Level</strong>, <strong>Points</strong>, <strong>Stats</strong>,
+              <strong>Prompt</strong> and <strong>Sidebar</strong>. Several of them offer a green and a red colour, so
+              a card can carry one of two accent treatments.
+            </p>
+
+            <h2 id="htu-news-cards">How To Use News Cards <span class="badge-pro">Pro</span></h2>
+            <p>News Cards lays articles out as cards with a date block, an author, a title, an excerpt, extra stats and
+              a button. It can run on cards you type by hand or on your real posts.</p>
+            <figure class="media-slot" data-media="image" data-src="" data-caption="News Cards"></figure>
+            <h3 id="htu-nc-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove Cards:</strong> each card has a day, month and year, an author, a title, an
+                excerpt, additional info, an image and a button.</li>
+              <li><strong>Layouts:</strong> columns per device, three on desktop, two on tablet and one on mobile, plus
+                the gaps.</li>
+              <li><strong>Elements:</strong> <strong>Show Date</strong>, <strong>Show Author</strong>, <strong>Show
+                  Title</strong>, <strong>Show Description</strong>, <strong>Show Button</strong>, <strong>Show Stats
+                  Info</strong>, <strong>Open In New Tab</strong> and <strong>Light Style</strong>.</li>
+              <li><strong>Posts Query:</strong> the controls that turn the block into a live post list.</li>
+            </ul>
+            <h3 id="htu-nc-query">Posts Query</h3>
+            <p>Switch the block to your posts and the Posts Query panel decides which ones appear:</p>
+            <ul>
+              <li><strong>Taxonomy Relation:</strong> AND or OR between the taxonomy filters.</li>
+              <li><strong>Select Categories</strong>, <strong>Select Tags</strong> and <strong>Select Authors</strong>.
+              </li>
+              <li><strong>Search Query:</strong> limit the list to posts matching a search term.</li>
+              <li><strong>Post Offset:</strong> skip the first few results. Defaults to 0.</li>
+              <li><strong>Include Posts</strong> and <strong>Exclude Posts:</strong> pick specific posts in or out.</li>
+              <li><strong>Exclude Current Post</strong> and <strong>Exclude Sticky Posts.</strong></li>
+            </ul>
+            <p>The block queries the <code>post</code> type by default, shows 6 posts, orders them by date descending,
+              uses the <code>full</code> image size and formats dates as <code>M j, Y</code>.</p>
+            <h3 id="htu-nc-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong>, <strong>Card</strong>, <strong>Date</strong>,
+              <strong>Stats</strong>, <strong>Author Name</strong>, <strong>Title</strong>,
+              <strong>Description</strong> and <strong>Button</strong>. Because this block has a dark and a light
+              presentation, several colour controls are labelled <em>Dark Style</em> and <em>Light Style</em> so you
+              can set both.
+            </p>
+
+            <h2 id="htu-magnifying">How To Use Magnifying Glass Card <span class="badge-pro">Pro</span></h2>
+            <p>Magnifying Glass Card shows a grid of image cards. Hovering a card reveals a magnifying effect over the
+              picture.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Magnifying Glass Cards"></figure>
+            <h3 id="htu-mg-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove:</strong> each card takes an <strong>Image</strong> and a
+                <strong>Title</strong>.
+              </li>
+              <li><strong>Layout:</strong> <strong>Row Gap</strong> and <strong>Column Gap</strong>, both 20 by
+                default, with columns set to three on desktop, two on tablet and one on mobile.</li>
+              <li><strong>Elements:</strong> <strong>Magnifying Icon Show</strong> and <strong>Title Show</strong>, both
+                on by default.</li>
+            </ul>
+            <h3 id="htu-mg-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong>, <strong>Cards</strong>, <strong>Image</strong> and
+              <strong>Magnifying Glass</strong>.
+            </p>
+            <div class="callout"><span class="co-label">Note</span> This block loads GSAP and Splitting.js from a CDN,
+              and only on pages where the block is actually used.</div>
+
+            <h2 id="htu-flex">How To Use Expanding Flex Cards <span class="badge-pro">Pro</span></h2>
+            <p>Expanding Flex Cards puts image panels in a row. The panel under the pointer widens and shows its icon,
+              title and subtitle.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Expanding Flex Cards"></figure>
+            <h3 id="htu-fx-general">General Tab</h3>
+            <ul>
+              <li><strong>Add or Remove Cards:</strong> each card holds a <strong>Background Image</strong>, a
+                <strong>Title</strong>, a <strong>Title Link</strong>, a <strong>Subtitle</strong>, an
+                <strong>Icon</strong> and an <strong>Icon Color</strong>.
+              </li>
+              <li><strong>Options:</strong> <strong>Show Icon</strong>, <strong>Show Title</strong>, <strong>Show
+                  Subtitle</strong>, <strong>Title Link</strong> and <strong>Open in New Tab</strong>.</li>
+            </ul>
+            <h3 id="htu-fx-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong> with <strong>Height</strong>, <strong>Background</strong> and
+              <strong>Border Radius</strong>; <strong>Cards</strong> with <strong>Max Width</strong>,
+              <strong>Margin</strong> and <strong>Image Position</strong>; then <strong>Icon</strong>,
+              <strong>Title</strong> and <strong>Subtitle</strong>.
+            </p>
+
+            <h2 id="htu-slider">How To Use Expandable Animated Card Slider <span class="badge-pro">Pro</span></h2>
+            <p>This block is a carousel. One card is open at a time and the rest sit beside it as narrow strips.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Expandable Animated Card Slider"></figure>
+            <h3 id="htu-sl-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove Cards:</strong> each slide has a <strong>Background Image</strong>, a
+                <strong>Title</strong> and a <strong>Description</strong>.</li>
+              <li><strong>Slider Settings:</strong> see the table below.</li>
+              <li><strong>Elements:</strong> <strong>Title</strong>, <strong>Description</strong> and
+                <strong>Heading</strong> switches, plus a <strong>Heading Text</strong> field.</li>
+            </ul>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Slider setting</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Initial Open Card Number</td>
+                    <td>Number</td>
+                    <td>1</td>
+                    <td>Which slide is open when the page loads.</td>
+                  </tr>
+                  <tr>
+                    <td>Auto Play</td>
+                    <td>Toggle</td>
+                    <td>Off</td>
+                    <td>Advances the slider on its own.</td>
+                  </tr>
+                  <tr>
+                    <td>Auto Play Timeout</td>
+                    <td>Number, milliseconds</td>
+                    <td>1000</td>
+                    <td>How long each slide stays open while autoplay runs.</td>
+                  </tr>
+                  <tr>
+                    <td>Loop</td>
+                    <td>Toggle</td>
+                    <td>On</td>
+                    <td>Returns to the first slide after the last one.</td>
+                  </tr>
+                  <tr>
+                    <td>Mouse Wheel</td>
+                    <td>Toggle</td>
+                    <td>Off</td>
+                    <td>Lets the scroll wheel move the slider.</td>
+                  </tr>
+                  <tr>
+                    <td>Dots</td>
+                    <td>Toggle</td>
+                    <td>On</td>
+                    <td>Shows the dot navigation under the slider.</td>
+                  </tr>
+                  <tr>
+                    <td>Nav</td>
+                    <td>Toggle</td>
+                    <td>Off</td>
+                    <td>Shows the previous and next arrows.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 id="htu-sl-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong>, <strong>Card</strong>, <strong>Heading Text</strong>,
+              <strong>Title</strong>, <strong>Description</strong>, <strong>Dots</strong> and
+              <strong>Navigation</strong>.
+            </p>
+            <div class="callout"><span class="co-label">Note</span> The slider is built on Owl Carousel, which the
+              plugin loads from a CDN only on pages that use this block.</div>
+
+            <h2 id="htu-gradient">How To Use Animated Gradient Cards <span class="badge-pro">Pro</span></h2>
+            <p>Animated Gradient Cards draws a moving gradient border around each card and hides the description behind
+              a reveal icon until the visitor opens it.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="Animated Gradient Cards"></figure>
+            <h3 id="htu-ag-general">General Tab</h3>
+            <ul>
+              <li><strong>Add or Remove Cards:</strong> each card has an image, a title, a description, a link URL and
+                a link text.</li>
+              <li><strong>Elements:</strong> <strong>Show Title</strong>, <strong>Show Description</strong>,
+                <strong>Show Button/Link</strong> and <strong>Open Link in New Tab</strong>.</li>
+              <li><strong>Layout:</strong> the grid settings for the card container.</li>
+            </ul>
+            <h3 id="htu-ag-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong> with <strong>Width</strong>, <strong>Radius</strong> and
+              <strong>Alignment</strong>; <strong>Card</strong> with <strong>Radius</strong>;
+              <strong>Content</strong> with title and description colour, margin and typography; and
+              <strong>Button</strong>.
+            </p>
+
+            <h2 id="htu-fold">How To Use 3D Fold Out Reveal <span class="badge-pro">Pro</span></h2>
+            <p>3D Fold Out Reveal shows a compact card that folds open in 3D to reveal its description and button.</p>
+            <figure class="media-slot" data-media="image" data-src=""
+              data-caption="3D Fold Out Revel"></figure>
+            <h3 id="htu-fo-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove Cards:</strong> each card takes an <strong>Image</strong>, a
+                <strong>Title</strong>, a <strong>Sub Title</strong>, a <strong>Description</strong>, a <strong>Button
+                  Text</strong> and a <strong>Button Link</strong>.</li>
+              <li><strong>Layouts:</strong> <strong>Row Gap</strong> and <strong>Column Gap</strong>, both 16 by
+                default, with four columns on desktop, two on tablet and one on mobile.</li>
+              <li><strong>Elements:</strong> <strong>Show Title</strong>, <strong>Show Subtitle</strong>, <strong>Show
+                  Description</strong>, <strong>Show Button</strong>, <strong>Show Icons</strong> and <strong>Link Open
+                  In New Tab</strong>, all on by default.</li>
+            </ul>
+            <h3 id="htu-fo-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong>, <strong>Card</strong>, <strong>Title</strong>,
+              <strong>Subtitle</strong>, <strong>Description</strong>, <strong>Button</strong> and
+              <strong>Icon</strong>, the last of which includes an <strong>Icon Rotate(degree)</strong> control for the
+              fold effect.
+            </p>
+
+            <h2 id="htu-nice-box">How To Use Nice Box <span class="badge-pro">Pro</span></h2>
+            <p>Nice Box puts a coloured wave shape between the picture and the text of each box. You choose which wave
+              is drawn per card.</p>
+            <h3 id="htu-nb-general">General Tab</h3>
+            <ul>
+              <li><strong>Add Or Remove Cards:</strong> each card takes an <strong>Image</strong>, a
+                <strong>Title</strong>, a <strong>Description</strong>, a <strong>Link</strong> and a <strong>Wave
+                  Shape Type</strong>.</li>
+              <li><strong>Layouts:</strong> <strong>Column Gap</strong> and <strong>Row Gap</strong>, both 128 by
+                default, with three columns on desktop, two on tablet and one on mobile.</li>
+              <li><strong>Options:</strong> <strong>Show Title</strong>, <strong>Show Description</strong>, <strong>Show
+                  Icon</strong>, <strong>Click On Card</strong>, <strong>Open in New Tab</strong> and <strong>Show
+                  Divider</strong>.</li>
+            </ul>
+            <h3 id="htu-nb-style">Style Tab</h3>
+            <p>Panels: <strong>Container</strong> with <strong>Background</strong> and <strong>Border Radius</strong>,
+              and <strong>Card</strong>, which also carries the <strong>Wave Shape Color</strong> control.</p>
+
+            <h2 id="htu-shortcode">Shortcode Usage</h2>
+            <p>A shortcode lets you reuse one card layout in places the block editor does not reach, such as a widget
+              area, a page builder or a theme template.</p>
+            <h3 id="htu-sc-create">Create a shortcode layout</h3>
+            <ol class="steps">
+              <li>Go to <strong>Info Cards &rarr; Add New</strong>.</li>
+              <li>Give it a title so you can recognise it later, then build the cards exactly as you would in a post.
+              </li>
+              <li>Click <strong>Publish</strong>.</li>
+              <li>Go to <strong>Info Cards &rarr; ShortCodes</strong>. The <strong>ShortCode</strong> column shows the
+                shortcode for each saved layout. Click it to copy it to the clipboard.</li>
+            </ol>
+            <h3 id="htu-sc-use">Paste it where you need it</h3>
+            <div class="codeblock">
+              <pre><code>[icb id="123"]</code></pre>
+            </div>
+            <div class="table-wrap">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Attribute</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>id</td>
+                    <td>Number</td>
+                    <td>0</td>
+                    <td>The ID of the saved layout under <strong>Info Cards &rarr; ShortCodes</strong>. Without a valid
+                      ID the shortcode outputs nothing.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Paste the shortcode into a post, a page, a text or shortcode widget, or a page builder element. In
+              Elementor, drag in the <strong>Shortcode</strong> widget and paste it into the widget's input field.</p>
+            <h3 id="htu-sc-php">Call it from a template</h3>
+            <p>To output a layout from a theme or template file such as <code>single.php</code> or
+              <code>page.php</code>, use <code>do_shortcode</code> and replace the ID with the one from the ShortCodes
+              list.
+            </p>
+            <div class="codeblock">
+              <pre><code>&lt;?php echo do_shortcode('[icb id="123"]'); ?&gt;</code></pre>
+            </div>
+            <div class="callout"><span class="co-label">Note</span> A shortcode layout follows the status of its post.
+              A published layout is visible to everyone. Private, draft, pending and scheduled layouts only render for
+              users who are allowed to see them, and a password protected layout shows the password form first.</div>
+
+            <h2 id="htu-analytics">Card Click Analytics</h2>
+            <p>The plugin records clicks on links and buttons inside its blocks on the front end and reports them under
+              <strong>Info Cards &rarr; Analytics</strong>. Clicks are grouped by card title, so give your cards real
+              titles and real links if you want the report to be useful.
+            </p>
+            <p>At the top of the page four figures cover the range you picked: <strong>Clicks</strong>, <strong>Cards
+                clicked</strong>, <strong>Busiest day</strong> and <strong>Daily average</strong>, followed by a
+              <strong>Clicks per day</strong> chart. You can view the last 7, 30 or 90 days.
+            </p>
+            <p>Below that, <strong>Most clicked cards</strong> lists each card with a sparkline, its clicks
+              <strong>In range</strong>, a <strong>Trend</strong> badge against the previous period, its <strong>All
+                time</strong> total and when it was <strong>Last clicked</strong>. Sort by clicking a column heading,
+              and narrow the list with <strong>Search cards</strong>.
+            </p>
+            <p>Three controls sit at the bottom of the page:</p>
+            <ul>
+              <li><strong>Export CSV:</strong> download the current range as a spreadsheet file.</li>
+              <li><strong>Keep history for:</strong> how long click history is retained. Choose 7 days, 30 days, 60
+                days, or <em>As long as possible (90 days)</em>, which is the default. A daily job trims anything
+                older.</li>
+              <li><strong>Clear analytics:</strong> delete all recorded clicks. This cannot be undone.</li>
+            </ul>
+            <div class="callout tip"><span class="co-label">Tip</span> If the page says no clicks have been recorded
+              yet, add an Info Cards block to a published page and give its cards real links. Clicks from logged out
+              visitors are counted too, and obvious bot traffic is ignored.</div>
+          </article>
+
+          <!-- ============ FAQS ============ -->
+          <article class="doc-article" id="faqs" data-group="FAQs" data-title="FAQs">
+            <h1>Frequently Asked Questions</h1>
+            <p class="lead">The questions the plugin authors answer most often.</p>
+
+            <h3 id="faq-block-plugin">What does it mean by block plugin?</h3>
+            <p>Block plugin add additonal gutenberg block into the Block editor.</p>
+
+            <h3 id="faq-customization">Do you offer the plugin customization service?</h3>
+            <p>Yes. If you need any service from us please email us at <a
+                href="mailto:support@bplugins.com">support@bplugins.com</a>.</p>
+
+            <h3 id="faq-brand-color">Can I use my brand's color?</h3>
+            <p>Yes, Its a fully customizable.</p>
+
+            <h3 id="faq-theme">Does it work with any WordPress theme?</h3>
+            <p>Yes, it will work with any standard WordPress theme.</p>
+
+            <h3 id="faq-settings">Can I change block settings?</h3>
+            <p>Yes, you can change block settings from the Gutenberg block editor's right sidebar.</p>
+
+            <h3 id="faq-reuse">How many times can I reuse a block?</h3>
+            <p>You can use unlimited times as you want.</p>
+
+            <h3 id="faq-support">Where can I get support?</h3>
+            <p>You can post your questions on the <a href="https://wordpress.org/support/plugin/info-cards/"
+                target="_blank" rel="noopener">support forum here</a>.</p>
+          </article>
+
+        </div>
+
+        <div class="article-footer" id="pager"></div>
+      </div>
+
+      <!-- ===================== TOC ===================== -->
+      <aside class="toc" id="toc">
+        <div class="toc-title">Table of Contents</div>
+        <ul id="tocList"></ul>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var articles = Array.prototype.slice.call(document.querySelectorAll(".doc-article"));
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-group-items a"));
+      var order = navLinks.map(function (a) { return a.getAttribute("href").slice(1); });
+      var tocList = document.getElementById("tocList");
+      var toc = document.getElementById("toc");
+      var pager = document.getElementById("pager");
+      var bcGroup = document.getElementById("bcGroup");
+      var bcTitle = document.getElementById("bcTitle");
+      var spy = null;
+
+      function articleById(id) {
+        return document.getElementById(id) && document.getElementById(id).classList.contains("doc-article")
+          ? document.getElementById(id) : null;
+      }
+
+      function buildToc(article) {
+        tocList.innerHTML = "";
+        var heads = Array.prototype.filter.call(article.querySelectorAll("h2"), function (h) {
+          return h.offsetParent !== null || getComputedStyle(h).display !== "none";
+        });
+        /* keep the column's width reserved when empty, so the content never shifts */
+        toc.style.visibility = heads.length ? "" : "hidden";
+        Array.prototype.forEach.call(heads, function (h) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = "#" + h.id;
+          a.textContent = h.textContent;
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            h.scrollIntoView({ behavior: "smooth" });
+            history.replaceState(null, "", "#" + article.id);
+          });
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+        if (spy) spy.disconnect();
+        spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) {
+              tocList.querySelectorAll("a").forEach(function (a) {
+                a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id);
+              });
+            }
+          });
+        }, { rootMargin: "-80px 0px -70% 0px", threshold: 0 });
+        Array.prototype.forEach.call(heads, function (h) { spy.observe(h); });
+      }
+
+      function buildPager(id) {
+        pager.innerHTML = "";
+        var i = order.indexOf(id);
+        if (i > 0) {
+          var prev = document.createElement("a");
+          prev.className = "pager-link"; prev.href = "#" + order[i - 1];
+          prev.setAttribute("data-nav", "");
+          prev.innerHTML = '<span class="pl-dir">&larr; Previous</span><span class="pl-title">' +
+            articleById(order[i - 1]).getAttribute("data-title") + "</span>";
+          pager.appendChild(prev);
+        }
+        if (i > -1 && i < order.length - 1) {
+          var next = document.createElement("a");
+          next.className = "pager-link next"; next.href = "#" + order[i + 1];
+          next.setAttribute("data-nav", "");
+          next.innerHTML = '<span class="pl-dir">Next &rarr;</span><span class="pl-title">' +
+            articleById(order[i + 1]).getAttribute("data-title") + "</span>";
+          pager.appendChild(next);
+        }
+      }
+
+      function show(id, scroll) {
+        var article = articleById(id) || articleById("home");
+        id = article.id;
+        articles.forEach(function (a) { a.classList.toggle("active", a === article); });
+        navLinks.forEach(function (a) {
+          var on = a.getAttribute("href") === "#" + id;
+          a.classList.toggle("active", on);
+          if (on) a.closest(".nav-group").classList.add("open");
+        });
+        bcGroup.textContent = article.getAttribute("data-group");
+        bcTitle.textContent = article.getAttribute("data-title");
+        /* PER-PLUGIN: rewrite this suffix when lifting the shell for another plugin */
+        document.title = article.getAttribute("data-title") + " | Info Cards Docs";
+        buildToc(article);
+        buildPager(id);
+        if (scroll !== false) window.scrollTo({ top: 0 });
+        document.body.classList.remove("nav-open");
+      }
+
+      document.addEventListener("click", function (e) {
+        var a = e.target.closest("a[data-nav]");
+        if (!a) return;
+        var id = a.getAttribute("href").slice(1);
+        if (!articleById(id)) return;
+        e.preventDefault();
+        history.pushState(null, "", "#" + id);
+        show(id);
+      });
+
+      window.addEventListener("popstate", function () {
+        show(location.hash.slice(1) || "home", false);
+      });
+
+      document.querySelectorAll(".nav-group-head").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          btn.parentElement.classList.toggle("open");
+        });
+      });
+
+      /* Mobile nav */
+      document.getElementById("menuBtn").addEventListener("click", function () {
+        document.body.classList.toggle("nav-open");
+      });
+      document.getElementById("overlay").addEventListener("click", function () {
+        document.body.classList.remove("nav-open");
+      });
+
+      /* Copy buttons */
+      document.querySelectorAll(".codeblock").forEach(function (block) {
+        var btn = document.createElement("button");
+        btn.className = "copy-btn"; btn.type = "button"; btn.textContent = "Copy";
+        btn.addEventListener("click", function () {
+          var text = block.querySelector("code").innerText;
+          (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
+            .then(function () { btn.textContent = "Copied!"; })
+            .catch(function () {
+              var ta = document.createElement("textarea");
+              ta.value = text; document.body.appendChild(ta); ta.select();
+              document.execCommand("copy"); document.body.removeChild(ta);
+              btn.textContent = "Copied!";
+            });
+          setTimeout(function () { btn.textContent = "Copy"; }, 1600);
+        });
+        block.appendChild(btn);
+      });
+
+      /* Editor switcher: Gutenberg/Classic/Elementor instruction variants, synced across pages */
+      var EDITORS = [
+        { id: "gutenberg", label: "Gutenberg", icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
+        { id: "classic", label: "Classic Editor", icon: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>' },
+        { id: "elementor", label: "Elementor", icon: '<path d="M4 3h3v18H4z"/><path d="M10 3h10v4H10z"/><path d="M10 10h10v4H10z"/><path d="M10 17h10v4H10z"/>' }
+      ];
+      document.querySelectorAll("[data-editor-switch]").forEach(function (row) {
+        row.classList.add("switch-row");
+        row.innerHTML = '<span class="switch-label">Show instructions for:</span>' +
+          '<div class="editor-switch" role="tablist" aria-label="Editor">' +
+          EDITORS.map(function (ed) {
+            return '<button type="button" data-editor="' + ed.id + '">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+              'stroke-linecap="round" stroke-linejoin="round">' + ed.icon + '</svg>' + ed.label + '</button>';
+          }).join("") + "</div>";
+      });
+      /* Tag each block with the h2 section it belongs to, so hiding a heading hides its whole section */
+      document.querySelectorAll(".doc-article").forEach(function (art) {
+        var current = null;
+        Array.prototype.forEach.call(art.children, function (el) {
+          if (el.tagName === "H2") { current = el.id || null; return; }
+          if (current) el.setAttribute("data-section", current);
+        });
+      });
+      function applySectionVisibility() {
+        document.querySelectorAll(".doc-article h2[id]").forEach(function (h) {
+          var hidden = getComputedStyle(h).display === "none";
+          document.querySelectorAll('[data-section="' + h.id + '"]').forEach(function (el) {
+            el.classList.toggle("section-hidden", hidden);
+          });
+        });
+      }
+      function setDocsEditor(mode) {
+        if (!EDITORS.some(function (ed) { return ed.id === mode; })) mode = "gutenberg";
+        document.body.classList.remove("editor-classic", "editor-gutenberg", "editor-elementor");
+        document.body.classList.add("editor-" + mode);
+        /* PER-PLUGIN: namespace this key per plugin */
+        try { localStorage.setItem("icbDocsEditor", mode); } catch (e) { }
+        document.querySelectorAll(".editor-switch button").forEach(function (b) {
+          b.classList.toggle("on", b.getAttribute("data-editor") === mode);
+        });
+        applySectionVisibility();
+      }
+      document.addEventListener("click", function (e) {
+        var b = e.target.closest(".editor-switch button");
+        if (!b) return;
+        setDocsEditor(b.getAttribute("data-editor"));
+        var active = document.querySelector(".doc-article.active");
+        if (active) buildToc(active);
+      });
+      var savedEditor = "gutenberg";
+      try { savedEditor = localStorage.getItem("icbDocsEditor") || "gutenberg"; } catch (e) { }
+      setDocsEditor(savedEditor);
+
+      /* Media slots: show the real image/video when the file exists, a labeled placeholder otherwise */
+      var PH_ICONS = {
+        image: '<svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>',
+        video: '<svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>'
+      };
+      function youtubeId(src) {
+        var m = src.match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?[^#]*v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+        return m ? m[1] : null;
+      }
+      document.querySelectorAll(".media-slot").forEach(function (slot) {
+        var src = (slot.getAttribute("data-src") || "").trim();
+        var type = slot.getAttribute("data-media") || "image";
+        var caption = slot.getAttribute("data-caption") || "";
+        var isRemote = /^https?:\/\//i.test(src);
+        function renderPlaceholder() {
+          slot.innerHTML = "";
+          var box = document.createElement("div");
+          box.className = "media-ph";
+          box.innerHTML = PH_ICONS[type] || PH_ICONS.image;
+          var label = document.createElement("div");
+          label.className = "ph-label"; label.textContent = caption;
+          var path = document.createElement("div");
+          path.className = "ph-path"; path.textContent = src;
+          var hint = document.createElement("div");
+          hint.className = "ph-hint";
+          hint.textContent = type === "video"
+            ? "Placeholder: paste the YouTube link into this slot's data-src and it will embed here"
+            : "Placeholder: paste the CDN image URL into this slot's data-src and it will appear here";
+          box.appendChild(label); box.appendChild(path); box.appendChild(hint);
+          slot.appendChild(box);
+        }
+        function renderMedia(el) {
+          slot.innerHTML = "";
+          slot.appendChild(el);
+          if (caption) {
+            var fc = document.createElement("figcaption");
+            fc.textContent = caption;
+            slot.appendChild(fc);
+          }
+        }
+        renderPlaceholder();
+        if (!src) return;
+        var yid = type === "video" ? youtubeId(src) : null;
+        if (yid) {
+          var wrap = document.createElement("div");
+          wrap.className = "yt-wrap";
+          var fr = document.createElement("iframe");
+          fr.src = "https://www.youtube-nocookie.com/embed/" + yid;
+          fr.title = caption;
+          fr.loading = "lazy";
+          fr.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+          fr.allowFullscreen = true;
+          wrap.appendChild(fr);
+          renderMedia(wrap);
+        } else if (type === "video") {
+          if (!isRemote && src.indexOf("/") === -1) return;
+          var v = document.createElement("video");
+          v.controls = true; v.preload = "metadata";
+          v.addEventListener("loadedmetadata", function () { renderMedia(v); });
+          v.addEventListener("error", renderPlaceholder);
+          v.src = src;
+        } else {
+          var im = new Image();
+          im.addEventListener("load", function () { im.alt = caption; renderMedia(im); });
+          im.addEventListener("error", renderPlaceholder);
+          im.src = src;
+        }
+      });
+
+      /* Image lightbox: click any screenshot to view it full size */
+      var lb = document.createElement("div");
+      lb.className = "lightbox";
+      lb.setAttribute("role", "dialog");
+      lb.setAttribute("aria-modal", "true");
+      lb.setAttribute("aria-label", "Image viewer");
+      lb.innerHTML =
+        '<button class="lb-close" type="button" aria-label="Close (Esc)">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+        '<button class="lb-prev" type="button" aria-label="Previous image">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>' +
+        '<button class="lb-next" type="button" aria-label="Next image">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>' +
+        '<img alt=""><div class="lb-caption"></div><div class="lb-count"></div>';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector("img");
+      var lbCap = lb.querySelector(".lb-caption");
+      var lbCount = lb.querySelector(".lb-count");
+      var lbGroup = [], lbIndex = 0, lbReturnFocus = null;
+
+      function lbShow(i) {
+        if (!lbGroup.length) return;
+        lbIndex = (i + lbGroup.length) % lbGroup.length;
+        var img = lbGroup[lbIndex];
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt || "";
+        var cap = img.closest(".media-slot");
+        cap = cap && cap.querySelector("figcaption");
+        lbCap.textContent = cap ? cap.textContent : (img.alt || "");
+        lbCount.textContent = lbGroup.length > 1 ? lbIndex + 1 + " / " + lbGroup.length : "";
+        lb.classList.toggle("single", lbGroup.length < 2);
+      }
+      function lbOpen(img) {
+        var article = img.closest(".doc-article") || document;
+        lbGroup = Array.prototype.filter.call(
+          article.querySelectorAll(".media-slot img"),
+          function (el) { return el.offsetParent !== null; }
+        );
+        var start = lbGroup.indexOf(img);
+        if (start === -1) { lbGroup = [img]; start = 0; }
+        lbReturnFocus = document.activeElement;
+        lb.classList.add("open");
+        document.body.classList.add("lb-open");
+        lbShow(start);
+        lb.querySelector(".lb-close").focus();
+      }
+      function lbClose() {
+        lb.classList.remove("open");
+        document.body.classList.remove("lb-open");
+        lbImg.removeAttribute("src");
+        if (lbReturnFocus && lbReturnFocus.focus) lbReturnFocus.focus();
+      }
+
+      document.addEventListener("click", function (e) {
+        var img = e.target.closest(".media-slot img");
+        if (img) { e.preventDefault(); lbOpen(img); return; }
+        if (!lb.classList.contains("open")) return;
+        if (e.target.closest(".lb-close")) return lbClose();
+        if (e.target.closest(".lb-prev")) return lbShow(lbIndex - 1);
+        if (e.target.closest(".lb-next")) return lbShow(lbIndex + 1);
+        if (e.target === lb) lbClose();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (!lb.classList.contains("open")) return;
+        if (e.key === "Escape") { e.preventDefault(); lbClose(); }
+        else if (e.key === "ArrowLeft" && lbGroup.length > 1) { e.preventDefault(); lbShow(lbIndex - 1); }
+        else if (e.key === "ArrowRight" && lbGroup.length > 1) { e.preventDefault(); lbShow(lbIndex + 1); }
+        else if (e.key === "Tab") {
+          var f = lb.querySelectorAll("button:not([style*='display: none'])");
+          var list = Array.prototype.filter.call(f, function (b) { return b.offsetParent !== null; });
+          if (!list.length) return;
+          var i = list.indexOf(document.activeElement);
+          e.preventDefault();
+          list[(i + (e.shiftKey ? -1 : 1) + list.length) % list.length].focus();
+        }
+      });
+
+      /* Search */
+      var input = document.getElementById("searchInput");
+      var results = document.getElementById("searchResults");
+      var index = articles.map(function (a) {
+        return {
+          id: a.id,
+          title: a.getAttribute("data-title"),
+          group: a.getAttribute("data-group"),
+          heads: Array.prototype.map.call(a.querySelectorAll("h2"), function (h) { return h.textContent; }),
+          text: a.textContent.replace(/\s+/g, " ").toLowerCase()
+        };
+      });
+
+      function runSearch() {
+        var q = input.value.trim().toLowerCase();
+        results.innerHTML = "";
+        if (q.length < 2) { results.classList.remove("open"); return; }
+        var hits = index.map(function (it) {
+          var score = 0;
+          if (it.title.toLowerCase().indexOf(q) > -1) score = 3;
+          else if (it.heads.some(function (h) { return h.toLowerCase().indexOf(q) > -1; })) score = 2;
+          else if (it.text.indexOf(q) > -1) score = 1;
+          return { it: it, score: score };
+        }).filter(function (r) { return r.score > 0; })
+          .sort(function (a, b) { return b.score - a.score; })
+          .map(function (r) { return r.it; })
+          .slice(0, 8);
+        if (!hits.length) {
+          results.innerHTML = '<div class="empty">No results for &ldquo;' + q.replace(/</g, "&lt;") + '&rdquo;</div>';
+        } else {
+          hits.forEach(function (it) {
+            var a = document.createElement("a");
+            a.href = "#" + it.id;
+            a.innerHTML = '<div class="r-title">' + it.title + '</div><div class="r-crumb">Docs / ' + it.group + "</div>";
+            a.addEventListener("click", function (e) {
+              e.preventDefault();
+              history.pushState(null, "", "#" + it.id);
+              show(it.id);
+              input.value = ""; results.classList.remove("open");
+            });
+            results.appendChild(a);
+          });
+        }
+        results.classList.add("open");
+      }
+
+      input.addEventListener("input", runSearch);
+      input.addEventListener("focus", runSearch);
+      input.addEventListener("keydown", function (e) {
+        var items = results.querySelectorAll("a");
+        var sel = results.querySelector("a.sel");
+        var i = Array.prototype.indexOf.call(items, sel);
+        if (e.key === "ArrowDown" && items.length) {
+          e.preventDefault();
+          if (sel) sel.classList.remove("sel");
+          items[(i + 1) % items.length].classList.add("sel");
+        } else if (e.key === "ArrowUp" && items.length) {
+          e.preventDefault();
+          if (sel) sel.classList.remove("sel");
+          items[(i - 1 + items.length) % items.length].classList.add("sel");
+        } else if (e.key === "Enter" && sel) {
+          e.preventDefault(); sel.click();
+        } else if (e.key === "Escape") {
+          results.classList.remove("open"); input.blur();
+        }
+      });
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".search-box")) results.classList.remove("open");
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "/" && document.activeElement !== input &&
+          !/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) {
+          e.preventDefault(); input.focus();
+        }
+      });
+
+      show(location.hash.slice(1) || "home", false);
+    })();
+  </script>
+</body>
+
+</html>
