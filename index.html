@@ -84,7 +84,6 @@
       position: relative; height: 220px; overflow: hidden;
       background: #fff; border-bottom: 1px solid var(--line);
     }
-    /* The doc page is rendered at desktop width, then scaled down to fit the card. */
     .preview iframe {
       position: absolute; top: 0; left: 0;
       width: 1440px; height: 1000px; border: 0;
@@ -285,7 +284,6 @@
       var grid = document.getElementById("grid");
       var cards = Array.prototype.slice.call(grid.querySelectorAll(".card"));
 
-      // Scale each preview so the 1440px-wide page fills the card width.
       function fit() {
         cards.forEach(function (c) {
           var p = c.querySelector(".preview");
